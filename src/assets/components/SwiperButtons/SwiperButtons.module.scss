@@ -1,0 +1,22 @@
+.swiperButtons {
+  position: absolute;
+  bottom:   0;
+  right:    4px;
+  z-index:  1;
+  button {
+    cursor:           pointer;
+    border:           0;
+    background-color: transparent;
+    display:          inline-flex;
+    align-items:      center;
+    img {
+      width: 27px;
+    }
+    &:nth-child(1) {
+      transform: rotate(180deg);
+    }
+    &:nth-child(2) {
+      margin-left: 19px;
+    }
+  }
+}

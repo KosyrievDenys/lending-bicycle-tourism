@@ -4,9 +4,13 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
+import 'swiper/css/pagination';
 import { Navigation, Pagination } from "swiper";
 import { Field, Form, Formik } from "formik";
 import * as yup from "yup";
+
+//components
+import { SwiperButtons } from "./assets/components/SwiperButtons/SwiperButtons";
 
 //assets
 import styles from './App.module.scss';
@@ -20,6 +24,7 @@ import formBack from './assets/images/form-back.png';
 import heart from './assets/images/heart.png';
 import price from './assets/images/price.png';
 import reviewsBack from './assets/images/reviews-back.png';
+import adaptive from './assets/images/adaptive.png';
 
 const tel = '+38-00-785-77-33';
 const email = '1@1.com';
@@ -38,15 +43,15 @@ const faq = [
   },
   {
     question: 'Смогу ли я проехать весь веломаршрут без какой-либо особой физической подготовки?',
-    answer: 'Вы можете отправиться в  велотур как на своем велосипеде, так и на арендованном у нас. Стоимость аренды велосипеда у нас составляет 500 руб + залог (1000 руб). К велосипеду также предоставляется шлем. По завершению поездки залог возвращается в полном объеме.'
+    // answer: 'Вы можете отправиться в  велотур как на своем велосипеде, так и на арендованном у нас. Стоимость аренды велосипеда у нас составляет 500 руб + залог (1000 руб). К велосипеду также предоставляется шлем. По завершению поездки залог возвращается в полном объеме.'
   },
   {
     question: 'Сколько времени займет вся поездка от подножия горы до ее вершины?',
-    answer: 'Вы можете отправиться в  велотур как на своем велосипеде, так и на арендованном у нас. Стоимость аренды велосипеда у нас составляет 500 руб + залог (1000 руб). К велосипеду также предоставляется шлем. По завершению поездки залог возвращается в полном объеме.'
+    // answer: 'Вы можете отправиться в  велотур как на своем велосипеде, так и на арендованном у нас. Стоимость аренды велосипеда у нас составляет 500 руб + залог (1000 руб). К велосипеду также предоставляется шлем. По завершению поездки залог возвращается в полном объеме.'
   },
   {
     question: 'Сколько человек в группе и кто нас будет сопровождать?',
-    answer: 'Вы можете отправиться в  велотур как на своем велосипеде, так и на арендованном у нас. Стоимость аренды велосипеда у нас составляет 500 руб + залог (1000 руб). К велосипеду также предоставляется шлем. По завершению поездки залог возвращается в полном объеме.'
+    // answer: 'Вы можете отправиться в  велотур как на своем велосипеде, так и на арендованном у нас. Стоимость аренды велосипеда у нас составляет 500 руб + залог (1000 руб). К велосипеду также предоставляется шлем. По завершению поездки залог возвращается в полном объеме.'
   },
 ];
 
@@ -59,65 +64,82 @@ const validationSchema = yup.object().shape({
 export const App = () => {
 
   const [formMessage, setFormMessage] = useState(false);
+  const [openAnswer, setOpenAnswer] = useState(false);
 
   return (
-    <div className="App">
-      <header className="header">
+    <div className={styles.app}>
+      <header className={styles.header}>
         <div className='container'>
           <div className={styles.content}>
             <div className={styles.left}>
-              Bikeingora
+              <p>Bikeingora</p>
               <img src={bicycleIcon} alt='' />
             </div>
             <div className={styles.right}>
               <a href={`tel:${tel}`}>{tel}</a>
-              <a href='#' className={styles.btn}>Забронювати</a>
+              <a href='#' className='btn'>Забронювати</a>
             </div>
           </div>
         </div>
       </header>
       <main>
         <section className={styles.banner}>
-          <img src={banner} alt='' />
           <div className='container'>
-            <h1>Велотур в горы</h1>
-            <div className={styles.desktop}>
-              Совершите незабываемое путешествие на вершину горы с вашим двухколесным другом!
-              <a href='#' className={styles.btn}>Забронювати</a>
+            <div className={styles.content}>
+              <img src={adaptive} alt='' className='cover' />
+              <h1>Велотур в горы</h1>
+              <div className={styles.desktop}>
+                Совершите незабываемое путешествие на вершину горы с вашим двухколесным другом!
+                <a href='#' className={styles.btn}>Забронювати</a>
+              </div>
             </div>
           </div>
         </section>
-        <div className={styles.mobBanner}>
-          <img src={formBack} alt='' />
-          <div className={styles.desktop}>
-            Совершите незабываемое путешествие на вершину горы с вашим двухколесным другом!
-            <a href='#' className={styles.btn}>Забронювати</a>
+        <section className={styles.mobBanner}>
+          <div className='container'>
+            <div className={styles.desktop}>
+              <img src={formBack} alt='' className='cover' />
+              Совершите незабываемое путешествие на вершину горы с вашим двухколесным другом!
+              <a href='#' className='btn'>Забронювати</a>
+            </div>
           </div>
-        </div>
+        </section>
         <section className={styles.description}>
           <div className='container'>
             <div className={styles.content}>
-              <div>
-                <img src={bicycle} alt='' />
-                <h3>Безпека</h3>
-                <p>
-                  В велопутешествии вас будет сопровождать профессиональный тренер- гид, который не позволит вам
-                  получить травму
-                </p>
+              <div className={styles.block}>
+                <div className={styles.img}>
+                  <img src={adaptive} alt='' />
+                </div>
+                <div className={styles.text}>
+                  <h3>Безпека</h3>
+                  <p>
+                    В велопутешествии вас будет сопровождать профессиональный тренер- гид, который не позволит вам
+                    получить травму
+                  </p>
+                </div>
               </div>
-              <div>
-                <img src={heart} alt='' />
-                <h3>Незабутні емоції</h3>
-                <p>
-                  Свежий горный воздух, голубое небо, солнце и двухколесный друг рядом. Что может быть лучше?
-                </p>
+              <div className={styles.block}>
+                <div className={styles.img}>
+                  <img src={heart} alt='' />
+                </div>
+                <div className={styles.text}>
+                  <h3>Незабутні емоції</h3>
+                  <p>
+                    Свежий горный воздух, голубое небо, солнце и двухколесный друг рядом. Что может быть лучше?
+                  </p>
+                </div>
               </div>
-              <div>
-                <img src={price} alt='' />
-                <h3>Доступна ціна</h3>
-                <p>
-                  Стоимость путешествия вас приятно удивит. Такую велопрогулку может позволить себе каждый!
-                </p>
+              <div className={styles.block}>
+                <div className={styles.img}>
+                  <img src={price} alt='' />
+                </div>
+                <div className={styles.text}>
+                  <h3>Доступна ціна</h3>
+                  <p>
+                    Стоимость путешествия вас приятно удивит. Такую велопрогулку может позволить себе каждый!
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -125,10 +147,13 @@ export const App = () => {
         <section className={styles.reviews}>
           <div className='container'>
             <div className={styles.content}>
+              <h2 className={styles.title}>Відгуки наших клієнтів</h2>
+              <img src={adaptive} alt='' className={cn(styles.right, 'cover')} />
               <div className={styles.left}>
-                <img src={reviewsBack} alt='' />
+                <img src={reviewsBack} alt='' className={styles.back} />
                 <h2>Відгуки наших клієнтів</h2>
                 <Swiper
+                  className='swiper-reviews'
                   slidesPerView={1}
                   centeredSlides={true}
                   grabCursor={true}
@@ -137,24 +162,37 @@ export const App = () => {
                   pagination={true}
                   modules={[Navigation, Pagination]}
                 >
-                  <SwiperSlide>
+                  <SwiperSlide
+                    className={styles.slide}
+                  >
                     “Прекрасная велопрогулка по горной местности в чудесной компании! Привез с собой массу положительных
                     эмоций и красивых фотографий!”
                     <h3>Андрій Шварц</h3>
                   </SwiperSlide>
-                  <SwiperSlide>
+                  <SwiperSlide
+                    className={styles.slide}
+                  >
                     “Прекрасная велопрогулка по горной местности в чудесной компании! Привез с собой массу положительных
                     эмоций и красивых фотографий!”
                     <h3>Андрій Шварц</h3>
                   </SwiperSlide>
-                  <SwiperSlide>
+                  <SwiperSlide
+                    className={styles.slide}
+                  >
                     “Прекрасная велопрогулка по горной местности в чудесной компании! Привез с собой массу положительных
                     эмоций и красивых фотографий!”
                     <h3>Андрій Шварц</h3>
                   </SwiperSlide>
+                  <SwiperSlide
+                    className={styles.slide}
+                  >
+                    “Прекрасная велопрогулка по горной местности в чудесной компании! Привез с собой массу положительных
+                    эмоций и красивых фотографий!”
+                    <h3>Андрій Шварц</h3>
+                  </SwiperSlide>
+                  <SwiperButtons />
                 </Swiper>
               </div>
-              <img src={reviews} alt='' className={styles.right} />
             </div>
           </div>
         </section>
@@ -162,7 +200,7 @@ export const App = () => {
           <div className='container'>
             <h2>Особливості туру</h2>
             <div className={styles.content}>
-              <img src={features} alt='' />
+              <img src={adaptive} alt='' className='cover' />
               <ul>
                 <li>Велопрогулка совершается на вашем или арендованном у нас велосипеде.</li>
                 <li>Маршрут пролегает по горной местности с набором высоты до 750 метров.</li>
@@ -177,63 +215,70 @@ export const App = () => {
           </div>
         </section>
         <section className={styles.dates}>
-          <div className='container'>
+          <div className={cn('container', styles.container)}>
             <h2>Найближчі дати заїздів у вересні:</h2>
             <div className={styles.content}>
               {dates.map((date, index) => (
                 <div className={styles.block} key={index}>
                   <div>{date.date}</div>
-                  <div className={styles.seats}>{date.seats}</div>
+                  <div className={cn(date.seats && styles.seats)}>
+                    Залишилось {date.seats}</div>
                   <div>{date.price}</div>
                 </div>
               ))}
             </div>
-            <a href='#' className={styles.btn}>Забронювати</a>
+            <a href='#' className='btn'>Забронювати</a>
           </div>
         </section>
         <section className={styles.faq}>
           <div className='container'>
             <h2>FAQ</h2>
-            {faq.map((question, index) => (
-              <div className={styles.select} key={index}>
-                <div className={styles.question}>
-                  {question.question}
-                  <img src={arrow} alt='' />
-                </div>
-                <div className={styles.answer}>
-                  {question.answer}
-                </div>
-              </div>))}
+            <ul>
+              {faq.map((question, index) => (
+                <li className={styles.select} key={index}>
+                  <div
+                    className={styles.question}
+                  >
+                    {question.question}
+                    <img src={arrow} alt='' />
+                  </div>
+                  <div className={styles.answer}>
+                    {question.answer}
+                  </div>
+                </li>))}
+            </ul>
           </div>
         </section>
         <section className={styles.communication}>
           <div className='container'>
             <h2>Зв'язок з нами</h2>
-            <div className={styles.content}>
-              <Formik
-                validationSchema={validationSchema}
-                initialValues={{
-                  name: '',
-                  phone: '',
-                  message: '',
-                }}
-                onSubmit={values => console.log(values)}
-              >
-                {({ errors, touched }) => (
-                  <Form>
+          </div>
+          <div className={styles.content}>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={{
+                name: '',
+                phone: '',
+                message: '',
+              }}
+              onSubmit={values => console.log(values)}
+            >
+              {({ errors, touched }) => (
+                <Form className={styles.form}>
+                  <div className='container'>
                     <label>
-                      <span>Ім'я</span>
+                      <h3>Ім'я</h3>
                       <Field
                         name='name'
                         type='text'
-                        description='Як до вас звертатись?'
+                        placeholder='Як до вас звертатись?'
                       />
                       {errors.name && touched.name && (
                         <span className={styles.error}>{errors.name}</span>
                       )}
                     </label>
                     <label>
-                      <span>Телефон</span>
+                      <h3>Телефон</h3>
                       <Field
                         name='phone'
                         type='text'
@@ -242,39 +287,44 @@ export const App = () => {
                         <span className={styles.error}>{errors.phone}</span>
                       )}
                     </label>
-                    {!formMessage && <div onClick={() => setFormMessage(true)}>
+                    {!formMessage && <div
+                      className={styles.addMessage}
+                      onClick={() => setFormMessage(true)}>
                       + Добавити повідомлення
                     </div>}
                     {formMessage && <label>
-                      <span>Повідомлення</span>
+                      <h3>Повідомлення</h3>
                       <Field
                         name='message'
                         type='text'
                       />
                     </label>}
-                    <button type='submit' className={styles.btn}>
+                    <button type='submit' className='btn'>
                       Відправити
                     </button>
                     <p>
                       Натискаючи на кнопки ви погоджуєтесь з
                       <a href='#'>Політикою конфіденційності</a>
                     </p>
-                  </Form>
-                )}
-              </Formik>
-              <div className={styles.contacts}>
-                <img src={formBack} alt='' />
-                <div>
-                  <a href={`tel:${tel}`}>{tel}</a>
-                  <a href={`email:${email}`}>{email}</a>
-                  <a href='#'>Да Вінчі</a>
-                </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+            <div className={styles.contacts}>
+              <div className='container'>
+                <img src={adaptive} alt='' className='cover' />
+                <ul>
+                  <li><h3>Наші контакти:</h3></li>
+                  <li><a href={`tel:${tel}`}>{tel}</a></li>
+                  <li><a href={`email:${email}`}>{email}</a></li>
+                  <li><a href='#'>Да Вінчі</a></li>
+                </ul>
               </div>
             </div>
           </div>
         </section>
       </main>
-      <footer>@ Bikeingora Inc</footer>
+      <footer className={styles.footer}>@ Bikeingora Inc</footer>
     </div>
   );
 }
