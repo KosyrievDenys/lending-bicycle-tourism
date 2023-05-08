@@ -20,3 +20,13 @@
     }
   }
 }
+
+@media(min-width: 1024px) {
+  .swiperButtons {
+    button {
+      img {
+        width: 29px;
+      }
+    }
+  }
+}

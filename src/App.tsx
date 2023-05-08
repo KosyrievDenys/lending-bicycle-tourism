@@ -33,7 +33,7 @@ const dates = [
   { date: '3 вересня', seats: '3 місця', price: 3500 },
   { date: '5 вересня', price: 2500 },
   { date: '6 вересня', price: 4500 },
-  { date: '7 вересня', seats: '8 місць', price: 5500 },
+  { date: '28 вересня', seats: '8 місць', price: 5500 },
 ];
 
 const faq = [
@@ -69,7 +69,7 @@ export const App = () => {
   return (
     <div className={styles.app}>
       <header className={styles.header}>
-        <div className='container'>
+        <div className={cn('container', styles.container)}>
           <div className={styles.content}>
             <div className={styles.left}>
               <p>Bikeingora</p>
@@ -84,13 +84,13 @@ export const App = () => {
       </header>
       <main>
         <section className={styles.banner}>
-          <div className='container'>
+          <div className={cn('container', styles.container)}>
             <div className={styles.content}>
               <img src={adaptive} alt='' className='cover' />
               <h1>Велотур в горы</h1>
               <div className={styles.desktop}>
                 Совершите незабываемое путешествие на вершину горы с вашим двухколесным другом!
-                <a href='#' className={styles.btn}>Забронювати</a>
+                <a href='#' className='btn'>Забронювати</a>
               </div>
             </div>
           </div>
@@ -105,11 +105,11 @@ export const App = () => {
           </div>
         </section>
         <section className={styles.description}>
-          <div className='container'>
+          <div className={cn('container', styles.container)}>
             <div className={styles.content}>
               <div className={styles.block}>
                 <div className={styles.img}>
-                  <img src={adaptive} alt='' />
+                  <img src={bicycle} alt='' />
                 </div>
                 <div className={styles.text}>
                   <h3>Безпека</h3>
@@ -145,12 +145,12 @@ export const App = () => {
           </div>
         </section>
         <section className={styles.reviews}>
-          <div className='container'>
+          <div className={cn('container', styles.container)}>
             <div className={styles.content}>
               <h2 className={styles.title}>Відгуки наших клієнтів</h2>
               <img src={adaptive} alt='' className={cn(styles.right, 'cover')} />
               <div className={styles.left}>
-                <img src={reviewsBack} alt='' className={styles.back} />
+                <img src={reviewsBack} alt='' className={cn(styles.back, 'cover')} />
                 <h2>Відгуки наших клієнтів</h2>
                 <Swiper
                   className='swiper-reviews'
@@ -197,10 +197,10 @@ export const App = () => {
           </div>
         </section>
         <section className={styles.features}>
-          <div className='container'>
+          <div className={cn('container', styles.container)}>
             <h2>Особливості туру</h2>
             <div className={styles.content}>
-              <img src={adaptive} alt='' className='cover' />
+              <img src={adaptive} alt='' className={cn('cover', styles.left)} />
               <ul>
                 <li>Велопрогулка совершается на вашем или арендованном у нас велосипеде.</li>
                 <li>Маршрут пролегает по горной местности с набором высоты до 750 метров.</li>
@@ -231,7 +231,7 @@ export const App = () => {
           </div>
         </section>
         <section className={styles.faq}>
-          <div className='container'>
+          <div className={cn('container', styles.container)}>
             <h2>FAQ</h2>
             <ul>
               {faq.map((question, index) => (
@@ -250,75 +250,75 @@ export const App = () => {
           </div>
         </section>
         <section className={styles.communication}>
-          <div className='container'>
+          <div className={cn('container', styles.container)}>
             <h2>Зв'язок з нами</h2>
-          </div>
-          <div className={styles.content}>
-            <Formik
-              validationSchema={validationSchema}
-              initialValues={{
-                name: '',
-                phone: '',
-                message: '',
-              }}
-              onSubmit={values => console.log(values)}
-            >
-              {({ errors, touched }) => (
-                <Form className={styles.form}>
-                  <div className='container'>
-                    <label>
-                      <h3>Ім'я</h3>
-                      <Field
-                        name='name'
-                        type='text'
-                        placeholder='Як до вас звертатись?'
-                      />
-                      {errors.name && touched.name && (
-                        <span className={styles.error}>{errors.name}</span>
-                      )}
-                    </label>
-                    <label>
-                      <h3>Телефон</h3>
-                      <Field
-                        name='phone'
-                        type='text'
-                      />
-                      {errors.phone && touched.phone && (
-                        <span className={styles.error}>{errors.phone}</span>
-                      )}
-                    </label>
-                    {!formMessage && <div
-                      className={styles.addMessage}
-                      onClick={() => setFormMessage(true)}>
-                      + Добавити повідомлення
-                    </div>}
-                    {formMessage && <label>
-                      <h3>Повідомлення</h3>
-                      <Field
-                        name='message'
-                        type='text'
-                      />
-                    </label>}
-                    <button type='submit' className='btn'>
-                      Відправити
-                    </button>
-                    <p>
-                      Натискаючи на кнопки ви погоджуєтесь з
-                      <a href='#'>Політикою конфіденційності</a>
-                    </p>
-                  </div>
-                </Form>
-              )}
-            </Formik>
-            <div className={styles.contacts}>
-              <div className='container'>
-                <img src={adaptive} alt='' className='cover' />
-                <ul>
-                  <li><h3>Наші контакти:</h3></li>
-                  <li><a href={`tel:${tel}`}>{tel}</a></li>
-                  <li><a href={`email:${email}`}>{email}</a></li>
-                  <li><a href='#'>Да Вінчі</a></li>
-                </ul>
+            <div className={styles.content}>
+              <Formik
+                validationSchema={validationSchema}
+                initialValues={{
+                  name: '',
+                  phone: '',
+                  message: '',
+                }}
+                onSubmit={values => console.log(values)}
+              >
+                {({ errors, touched }) => (
+                  <Form className={styles.form}>
+                    <div className={cn('container', styles.container)}>
+                      <label>
+                        <h3>Ім'я</h3>
+                        <Field
+                          name='name'
+                          type='text'
+                          placeholder='Як до вас звертатись?'
+                        />
+                        {errors.name && touched.name && (
+                          <span className={styles.error}>{errors.name}</span>
+                        )}
+                      </label>
+                      <label>
+                        <h3>Телефон</h3>
+                        <Field
+                          name='phone'
+                          type='text'
+                        />
+                        {errors.phone && touched.phone && (
+                          <span className={styles.error}>{errors.phone}</span>
+                        )}
+                      </label>
+                      {!formMessage && <div
+                        className={styles.addMessage}
+                        onClick={() => setFormMessage(true)}>
+                        + Добавити повідомлення
+                      </div>}
+                      {formMessage && <label>
+                        <h3>Повідомлення</h3>
+                        <Field
+                          name='message'
+                          type='text'
+                        />
+                      </label>}
+                      <button type='submit' className='btn'>
+                        Відправити
+                      </button>
+                      <p>
+                        Натискаючи на кнопки ви погоджуєтесь з
+                        <a href='#'>Політикою конфіденційності</a>
+                      </p>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+              <div className={styles.contacts}>
+                <div className='container'>
+                  <img src={formBack} alt='' className={cn('cover', styles.back)} />
+                  <ul>
+                    <li><h3>Наші контакти:</h3></li>
+                    <li><a href={`tel:${tel}`}>{tel}</a></li>
+                    <li><a href={`email:${email}`}>{email}</a></li>
+                    <li><a href='#'>Да Вінчі</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
